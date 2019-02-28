@@ -1,11 +1,12 @@
-# Título del trabajo
-
-Descripción breve del proyecto a realizar (2-3 frases).
+# Contenedor automatico de reciclaje
+Se trata de un contendor de basura inteligente que reconozca el material depositado (plástico, metal, orgánico, ect) y lo reciclaria en el compartimento adecuado. Utilizaremos para ello una placa de arduino junto sensores capacitivos.
 
 ## Integrantes del equipo
 
-Nombres, apellidos, y usuario GitHub de los integrantes del equipo.
+Laura López De Meneses Calvo. Usuario: lauralopezdemenesescalvo
+Diego Manzano Garijo. Usuario:
+Tomás Sanchez Villaluenga. Usuario: tsvillaluenga
 
 ## Objetivos del trabajo
 
-Lista de los objetivos que se persiguen con el trabajo propuesto.
+El principal objetivo del proyecto es ayudar con el reciclaje cotidiano, ya que es una tarea que muchos dejan de hacer por pereza. Gracias a este se hará mas sencillo y cómodo.
