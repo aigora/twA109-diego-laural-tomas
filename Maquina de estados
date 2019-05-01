@@ -1,0 +1,5 @@
+#Maquinas de estados
+Utilizaremos 3 funciones:
+-Identificador: mediante esta funcion cogeremos los valores obtenidos por el sensor y los pasaremos al programa, a su vez identificando de que tipo de material se trata dandole valores a una variable segun el intervalo en que se encuentre el valor de la constante obtenida por el sensor.
+-Imprimir: mediante esta funcion imprimiremos por pantalla el nombre de el material identificado mediante los valores obtenidos en la funcion anterior.
+-Ejecutor: segun el tipo de material que del que se trate mandaremos ordenes a arduino para utilizar el motor adecuado.
