@@ -1,0 +1,100 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include <string.h>
+#include "SerialPort.h"
+
+// material:   1=metal      2=madera        3=papel
+
+
+
+typedef struct 
+{
+float cte;
+} entrada;
+
+void inicializacion ();
+void recibir (float incomingData);
+int indentificador (entrada ent);
+void imprimir (material m);
+void conexion_salida (material m);
+
+
+int main (void)
+{int material;
+entrada ent;
+
+inicializacion();                                  
+ent.cte=recibir(incomingData);                 
+material= identificador(ent);
+imprimir(material);
+conexion_salida(material);
+
+return 0;	
+}
+
+
+int indentificador (entrada ent)
+{ int material=0;
+	scanf("%f", &cte.ent);
+	
+    if (ent>=0 && ent<2)
+    { material=1;}
+    
+    if (ent>=2 && ent<4)
+    { material=2;}
+    
+    if (ent>=4 && ent<6)
+    { material=3;}
+
+    else
+     printf("Material no identificado");
+     
+     return material;
+}
+
+
+void imprimir (material m)
+{
+switch(m)  
+{
+       case 1: printf("El material es METAL");                           
+             break;
+             
+       case 2: printf("El material es MADERA");                      
+             break;
+             
+        case 3: printf("El material es METAL");                              
+             break;
+             
+        default: printf("Material no identificado")
+             
+}
+}
+
+
+
+void recibir (float incomingData)                    
+{float a;
+a= incomingData;                      //(lo que hay en el buffer procedente de arduino pasa a ser ent.cte)
+return a;
+}
+
+
+
+void inicializacion ()   
+{
+FILE *pd;
+
+pd=fopen("inicio.c","r+");	
+}
+	
+	
+
+void conexion_salida (material m)
+{FILE *pf;
+
+pf=fopen("csalida.c","r+");	
+}
+	
+	
