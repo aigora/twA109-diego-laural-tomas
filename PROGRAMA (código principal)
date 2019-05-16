@@ -1,100 +1,85 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include <string.h>
 #include "SerialPort.h"
+#define MAX_DATA_LENGTH 255
 
-// material:   1=metal      2=madera        3=papel
+// Funciones prototipo
+void autoConnect(SerialPort *arduino,char*);
+void autoConnect2(SerialPort *arduino,char*);
 
-
-
-typedef struct 
+int main(void)
 {
-float cte;
-} entrada;
+ //Arduino SerialPort object
+ SerialPort *arduino;
+ // Puerto serie en el que está Arduino
+ char* portName = "\\\\.\\COM3";
+ // Buffer para datos procedentes de Arduino
+ char incomingData[MAX_DATA_LENGTH];
 
-void inicializacion ();
-void recibir (float incomingData);
-int indentificador (entrada ent);
-void imprimir (material m);
-void conexion_salida (material m);
-
-
-int main (void)
-{int material;
-entrada ent;
-
-inicializacion();                                  
-ent.cte=recibir(incomingData);                 
-material= identificador(ent);
-imprimir(material);
-conexion_salida(material);
-
-return 0;	
+ // Crear estructura de datos del puerto serie
+ arduino = (SerialPort *)malloc(sizeof(SerialPort));
+ // Apertura del puerto serie
+ Crear_Conexion(arduino,portName);
+ autoConnect(arduino,incomingData);
+ autoConnect2(arduino,incomingData);
+ return 0;
 }
 
 
-int indentificador (entrada ent)
-{ int material=0;
-	scanf("%f", &cte.ent);
-	
-    if (ent>=0 && ent<2)
-    { material=1;}
-    
-    if (ent>=2 && ent<4)
-    { material=2;}
-    
-    if (ent>=4 && ent<6)
-    { material=3;}
 
-    else
-     printf("Material no identificado");
-     
-     return material;
-}
-
-
-void imprimir (material m)
+void autoConnect(SerialPort *arduino,char *incomingData)
 {
-switch(m)  
+ char sendData = 0;
+
+// Espera la conexión con Arduino
+while (!isConnected(arduino))
 {
-       case 1: printf("El material es METAL");                           
-             break;
-             
-       case 2: printf("El material es MADERA");                      
-             break;
-             
-        case 3: printf("El material es METAL");                              
-             break;
-             
-        default: printf("Material no identificado")
-             
+Sleep(100);
+Crear_Conexion(arduino,arduino->portName);
 }
-}
-
-
-
-void recibir (float incomingData)                    
-{float a;
-a= incomingData;                      //(lo que hay en el buffer procedente de arduino pasa a ser ent.cte)
-return a;
-}
-
-
-
-void inicializacion ()   
+ //Comprueba si arduino está connectado
+if (isConnected(arduino))
 {
-FILE *pd;
-
-pd=fopen("inicio.c","r+");	
+ printf ("Conectado con Arduino en el puerto %s\n",arduino->portName);
 }
-	
-	
+ // Bucle de la aplicación
 
-void conexion_salida (material m)
-{FILE *pf;
-
-pf=fopen("csalida.c","r+");	
+while (isConnected(arduino) && sendData!='5')
+{
+sendData = getch();
+writeSerialPort(arduino,&sendData, sizeof(char));
 }
-	
-	
+if (!isConnected(arduino))
+ printf ("Se ha perdido la conexión con Arduino\n");
+}
+
+
+
+void autoConnect2(SerialPort *arduino,char *incomingData)
+{
+ int readResult;
+
+// Espera la conexión con Arduino
+while (!isConnected(arduino))
+{
+Sleep(100);
+Crear_Conexion(arduino,arduino->portName);
+}
+ //Comprueba si arduino está connectado
+if (isConnected(arduino))
+{
+printf ("Conectado con Arduino en el puerto %s\n",arduino->portName);
+}
+ // Bucle de la aplicación
+while (isConnected(arduino))
+{
+ readResult = readSerialPort(arduino,incomingData,
+MAX_DATA_LENGTH);
+if (readResult!=0)
+ printf("%s - %d\n", incomingData,readResult);
+ Sleep(10);
+}
+if (!isConnected(arduino))
+ printf ("Se ha perdido la conexión con Arduino\n");
+}
